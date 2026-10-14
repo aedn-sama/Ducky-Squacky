@@ -1,0 +1,31 @@
+{
+  "name": "ducky-squacky",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "start": "vite preview",
+    "vite": "vite",
+    "build": "tsc -b && vite build",
+    "tauri": "tauri",
+    "build:desktop": "bun run tauri -- build --target x86_64-pc-windows-gnu"
+  },
+  "dependencies": {
+    "@codemirror/lang-sql": "^6.8.0",
+    "@codemirror/theme-one-dark": "^6.1.2",
+    "@duckdb/duckdb-wasm": "^1.33.1-dev57.0",
+    "@uiw/react-codemirror": "^4.23.10",
+    "@vitejs/plugin-react": "^4.3.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vite": "^5.4.8"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.11.4",
+    "@types/node": "^22.7.4",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "typescript": "^5.6.2"
+  }
+}

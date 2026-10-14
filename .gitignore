@@ -1,0 +1,45 @@
+# Dependencies and build output
+node_modules/
+dist/
+target/
+src-tauri/gen/schemas/
+*.tsbuildinfo
+/vite.config.js
+/vite.config.d.ts
+
+# Local databases and query data
+*.duckdb
+*.duckdb.*
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.sqlite-*
+*.sqlite3-*
+
+# Environment files, credentials, and private keys
+.env
+.env.*
+!.env.example
+!.env.sample
+.aws/
+.ssh/
+.npmrc
+.netrc
+credentials.json
+service-account*.json
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+
+# Local logs, editor settings, and operating system files
+*.log
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
