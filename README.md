@@ -71,3 +71,78 @@ bun run build
 
 The build runs TypeScript checks before bundling. No lint or test scripts are
 currently defined in `package.json`.
+
+## Build on Windows
+
+Run the following commands in PowerShell on Windows 10 (version 1809 or later)
+or Windows 11.
+
+### Install dependencies
+
+Install [Git for Windows](https://git-scm.com/downloads/win),
+[Node.js LTS](https://nodejs.org/), and
+[Bun](https://bun.com/docs/installation). Bun can be installed from PowerShell:
+
+```powershell
+powershell -c "irm bun.sh/install.ps1 | iex"
+```
+
+Open a new PowerShell window, then clone the project and install the dependencies
+using the committed lockfile:
+
+```powershell
+git clone https://github.com/aedn-sama/Ducky-Squacky.git
+cd Ducky-Squacky
+bun install --frozen-lockfile
+```
+
+### Browser build
+
+The `build` script in `package.json` runs TypeScript checks and creates the Vite
+production bundle in `dist`. The `start` script serves that bundle for local
+preview:
+
+```powershell
+bun run build
+bun run start
+```
+
+Open the localhost URL printed by Vite. For development with live reload, use
+`bun run dev` and open `http://localhost:1420`.
+
+### Windows desktop build
+
+Install the additional [Tauri Windows prerequisites](https://v2.tauri.app/start/prerequisites/#windows):
+
+- Microsoft C++ Build Tools, with the **Desktop development with C++** workload
+  and its Windows SDK components.
+- Microsoft Edge WebView2 Runtime, if it is not already installed.
+- Rust through [rustup](https://rustup.rs/), using the MSVC toolchain.
+
+Restart PowerShell after installation. For a 64-bit Intel/AMD Windows build, run:
+
+```powershell
+rustup default stable-msvc
+rustup target add x86_64-pc-windows-msvc
+bun run tauri -- build --target x86_64-pc-windows-msvc
+```
+
+The `tauri` script invokes the project's installed Tauri CLI. Its configuration
+runs `bun run build` automatically before compiling the desktop application.
+The release executable is written under
+`src-tauri\target\x86_64-pc-windows-msvc\release`; installers are written under
+that directory's `bundle\nsis` (`*-setup.exe`) and `bundle\msi` (`*.msi`) folders.
+MSI packaging requires the Windows VBSCRIPT optional feature; see the
+[Tauri installer documentation](https://v2.tauri.app/distribute/windows-installer/)
+if MSI generation fails.
+
+The existing `bun run build:desktop` script explicitly selects
+`x86_64-pc-windows-gnu`. Tauri officially supports the Windows MSVC target, so
+use the explicit MSVC command above for a native Windows build. The scripts in
+`package.json` are unchanged.
+
+To run the desktop app during development:
+
+```powershell
+bun run tauri -- dev
+```
