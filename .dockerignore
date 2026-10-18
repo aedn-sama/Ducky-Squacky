@@ -1,0 +1,9 @@
+node_modules
+dist
+src-tauri
+.git
+.env*
+*.log
+*.tsbuildinfo
+*.duckdb
+*.duckdb.wal
